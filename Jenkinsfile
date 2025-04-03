@@ -57,7 +57,7 @@ pipeline {
                         -Dsonar.host.url=http://172.31.13.149:9000 \
                         -Dsonar.login=$SONAR_AUTH_TOKEN \
                         -Dsonar.branch.name=${BRANCH_NAME} \
-                        -Dsonar.test.exclusions=App.test.js
+                        -Dsonar.exclusions=**/*.test.js,**/__tests__/**,**/*.spec.js
                     '''
                 }
             }
