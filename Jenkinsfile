@@ -22,11 +22,11 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
+        // stage('Install Dependencies') {
+        //     steps {
+        //         sh 'npm install'
+        //     }
+        // }
 
         // stage('Run Unit & Integration Tests') {
         //     steps {
@@ -40,11 +40,11 @@ pipeline {
         //     }
         // }
 
-        stage('Build React.js App') {
-            steps {
-                sh 'npm run build'
-            }
-        }
+        // stage('Build React.js App') {
+        //     steps {
+        //         sh 'npm run build'
+        //     }
+        // }
         
         // stage('SonarQube Analysis') {
         // steps {
@@ -64,13 +64,13 @@ pipeline {
         // }
         // }
 
-        stage('Quality Gate') {
-            steps {
-                script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
-                }
-            }
-        }
+        // stage('Quality Gate') {
+        //     steps {
+        //         script {
+        //             waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
+        //         }
+        //     }
+        // }
         
 
         // stage('Build & Push Docker Image') {
