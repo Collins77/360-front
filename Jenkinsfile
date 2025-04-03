@@ -34,11 +34,11 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
+        // stage('Install Dependencies') {
+        //     steps {
+        //         sh 'npm install'
+        //     }
+        // }
 
         // stage('Run Unit & Integration Tests') {
         //     steps {
@@ -52,11 +52,11 @@ pipeline {
         //     }
         // }
 
-        stage('Build React.js App') {
-            steps {
-                sh 'npm run build'
-            }
-        }
+        // stage('Build React.js App') {
+        //     steps {
+        //         sh 'npm run build'
+        //     }
+        // }
         
         // stage('SonarQube Analysis') {
         // steps {
