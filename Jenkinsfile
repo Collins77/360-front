@@ -4,9 +4,21 @@ pipeline {
     environment {
         NODE_VERSION = '23'
         SONARQUBE_SERVER = 'sonarqube-server'
+        APP_NAME = "360-front-ci"
+        RELEASE = "1.0.0"
+        DOCKER_USER = "mufasa77"
+        DOCKER_PASS = 'dockerhub'
+        IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+        IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
     }
 
     stages {
+        stage("Cleanup Workspace") {
+            steps {
+                cleanWs()
+            }
+        }
+        
         stage('Checkout Code') {
             steps {
                 checkout scm
@@ -22,11 +34,11 @@ pipeline {
             }
         }
 
-        // stage('Install Dependencies') {
-        //     steps {
-        //         sh 'npm install'
-        //     }
-        // }
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
 
         // stage('Run Unit & Integration Tests') {
         //     steps {
@@ -64,10 +76,25 @@ pipeline {
         // }
         // }
 
-        stage('Quality Gate') {
+        // stage('Quality Gate') {
+        //     steps {
+        //         script {
+        //             waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
+        //         }
+        //     }
+        // }
+
+        stage('Build & Push Docker Image') {
             steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
+                    docker.withRegistry('',DOCKER_PASS) {
+                        docker_image = docker.build "${IMAGE_NAME}"
+                    }    
+
+                    docker.withRegistry('',DOCKER_PASS) {
+                        docker_image.push("${IMAGE_TAG}")
+                        docker_image.push('latest')
+                    }
                 }
             }
         }
