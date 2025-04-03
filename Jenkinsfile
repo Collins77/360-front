@@ -21,7 +21,7 @@ pipeline {
         
         stage('Checkout Code') {
             steps {
-                git branch: 'master', credentialsId: 'github', URL: 'https://github.com/collins77/360-front'
+                git branch: 'master', credentialsId: 'github', url: 'https://github.com/collins77/360-front'
             }
         }
 
