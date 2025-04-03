@@ -21,7 +21,7 @@ pipeline {
         
         stage('Checkout Code') {
             steps {
-                checkout scm
+                git branch: 'master', credentialsId: 'github', URL: 'https://github.com/collins77/360-front'
             }
         }
 
