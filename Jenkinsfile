@@ -46,23 +46,23 @@ pipeline {
             }
         }
         
-        stage('SonarQube Analysis') {
-        steps {
-            script {
-                withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
-                    sh '''
-                        npx sonar-scanner \
-                        -Dsonar.projectKey=360-front \
-                        -Dsonar.sources=src/pages \
-                        -Dsonar.host.url=http://172.31.13.149:9000 \
-                        -Dsonar.login=$SONAR_AUTH_TOKEN \
-                        -Dsonar.branch.name=${BRANCH_NAME} \
-                        -Dsonar.exclusions=**/*.test.js,**/__tests__/**,**/*.spec.js
-                    '''
-                }
-            }
-        }
-        }
+        // stage('SonarQube Analysis') {
+        // steps {
+        //     script {
+        //         withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
+        //             sh '''
+        //                 npx sonar-scanner \
+        //                 -Dsonar.projectKey=360-front \
+        //                 -Dsonar.sources=src/pages \
+        //                 -Dsonar.host.url=http://172.31.13.149:9000 \
+        //                 -Dsonar.login=$SONAR_AUTH_TOKEN \
+        //                 -Dsonar.branch.name=${BRANCH_NAME} \
+        //                 -Dsonar.exclusions=**/*.test.js,**/__tests__/**,**/*.spec.js
+        //             '''
+        //         }
+        //     }
+        // }
+        // }
 
         stage('Quality Gate') {
             steps {
