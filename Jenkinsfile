@@ -53,7 +53,7 @@ pipeline {
                     sh '''
                         npx sonar-scanner \
                         -Dsonar.projectKey=360-front \
-                        -Dsonar.sources=. \
+                        -Dsonar.sources=src/pages \
                         -Dsonar.host.url=http://172.31.13.149:9000 \
                         -Dsonar.login=$SONAR_AUTH_TOKEN \
                         -Dsonar.branch.name=${BRANCH_NAME} \
@@ -64,6 +64,14 @@ pipeline {
         }
         }
 
+        stage('Quality Gate') {
+            steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
+                }
+            }
+        }
+        
 
         // stage('Build & Push Docker Image') {
         //     steps {
